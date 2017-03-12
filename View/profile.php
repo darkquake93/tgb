@@ -164,7 +164,6 @@
                 <input class="bigbutton" name="update_bil_adr" type="submit" value="Update Billing Address" />
             </form>
         </div>
-    </section>
 
         <div id="Deling" class="tabcontent">
             <h3>Delivery Address</h3>
