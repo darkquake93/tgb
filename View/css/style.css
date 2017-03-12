@@ -1,0 +1,258 @@
+
+body
+{
+    background: #e0efe1;
+    color: #000305;
+    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin: 0px auto;
+    max-width: 800px;
+}
+
+.error {
+        background-color: #600;
+        color: white;
+        padding: 8px;
+}
+
+h2
+{
+    color: #C74350;
+}
+
+input.bigbutton {
+    margin: 8px;
+    padding: 8px;
+}
+
+#banner
+{
+    margin: 0 auto;
+    padding: 0;
+}
+
+.responsive {
+    max-width: 100%;
+} 
+
+.underlineText
+{
+    text-decoration: underline;
+}
+
+.boldText
+{
+    font-weight: bold;
+}
+
+#banner h1
+{
+    font-size: 3.571em;
+    line-height: .9;
+    color: #387a39;
+}
+
+#banner h1 a:link,
+#banner h1 a:visited
+{
+    color: #000305;
+    display: block;
+    font-weight: bold;
+    margin: 0 0 .6em .2em;
+    text-decoration: none;
+    width: 500px;
+    }
+
+#banner h1 a:hover,
+#banner h1 a:active
+{
+    background: none;
+    color: #C74350;
+    text-shadow: none;
+}
+
+#banner h1 strong
+{
+    font-size: 0.36em;
+    font-weight: normal;
+}
+
+#banner nav
+{
+    min-height: 40px;
+    line-height: 30px;
+    text-align: center;
+}
+
+#banner nav a:link,
+#banner nav a:visited
+{
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    padding: 5px 1.5em;
+    text-decoration: none;
+}
+
+#banner nav a:hover
+{
+    background: #387a39;
+}
+
+.centered {
+        margin-left: auto;
+        margin-right: auto;
+}
+
+table.centered td:first-child {
+        text-align: right;
+}
+
+table.centered td:nth-child(2) {
+        text-align: left;
+}
+
+#content
+{
+    background-color: #b8d4b8;
+    overflow: hidden;
+}
+
+#about
+{
+    background-color: #333;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li
+{
+    float: left;
+}
+
+
+
+li a
+{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active)
+{
+    background-color: #111;
+}
+
+.footerLink
+{
+    text-decoration: none;
+    color: #387A39;
+}
+
+.footerLink:hover
+{
+    text-decoration: none;
+    color: #89C98A;
+}
+
+.published
+{
+    float: right;
+    margin-right: 5px;
+    color: #408c42;
+}
+#login
+{
+    opacity: 0.75;
+    background-color: darkgrey;
+    padding-top: 50px;
+}
+
+#login input
+{
+    color: #C74350;
+    font-family: 'Shrikhand', cursive;
+    font-weight: bold;
+    opacity: 1;
+    border: 1px dotted #999;
+}
+
+#logSub
+{
+    margin-bottom: 10px;
+}
+
+.active
+{
+    background-color: darkgreen;
+    color: white;
+}
+
+.redWineList
+{
+    background-color: #b8d4b8;
+}
+
+.wineDetails
+{
+    width: 800px;
+}
+
+.wineDetails p
+{
+    width: 400px;
+     word-wrap: break-word;
+}
+.wineDetails img {
+    float: right;
+    width: 100px;
+    height: 100px;
+}
+div.tabs {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #e0efe1;
+}
+
+
+div.tabs a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+
+div.tabs a:hover {
+    background-color: #C74350;
+}
+
+
+div.tab a:focus, .active {
+    background-color: #C74350;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
