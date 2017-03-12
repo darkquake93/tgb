@@ -149,7 +149,7 @@ class Customer implements JsonSerializable {
 
         global $conn;
 
-        $stmt = $conn->prepare("SELECT Addressln1, Addressln2, Bill_id, Customer_id, Name, Postcode
+        $stmt = $conn->prepare("SELECT Addressln1, Addressln2, Del_id, Customer_id, Name, Postcode
                                 FROM Del_Adr WHERE Customer_id = ?");
         $stmt->execute([$this->Customer_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Del_Adr');
