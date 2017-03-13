@@ -1,16 +1,16 @@
 <!-- PHP Header Start -->
 <?php
 
-  
 
-    $php_base = "/home/k1336511/www/AD/TGB";
-    $base     = "/k1336511/AD/TGB";
+
+    $php_base = "/home/k1415390/www/Workshop 2/Project 1.6";
+    $base     = "/k1415390/Workshop 2/Project 1.6";
 
     require_once "$php_base/Model/dBcon.php";
     require_once "$php_base/Model/Customer.php";
     require_once "$php_base/Model/Bill_Adr.php";
     require_once "$php_base/Model/Del_Adr.php";
-      
+
 
 	  if (!session_id()) {
         session_start();
@@ -74,12 +74,10 @@
 
 <?php
     if (isset($_SESSION['errorMsg'])) { ?>
-    <div class="error"><?= $_SESSION['errorMsg'] ?></div>      
+    <div class="error"><?= $_SESSION['errorMsg'] ?></div>
 <?php
         unset($_SESSION['errorMsg']);
     }
 ?>
 
 <!-- PHP Header End -->
-
-

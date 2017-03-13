@@ -30,7 +30,7 @@ $title='10 Green Bottles - Never enough wine!'; require_once '../Controller/auth
 
 					<ul class="AddToWishList">
 							<li><a>Add To Wish List</a></li>
-							<li id="addToBasketLi"><a onclick="getBasketInfo();">Add To Basket</a><input type="number" id="wineQuantity"></li>
+							<li id="addToBasketLi"><a onclick="getBasketInfo(<?= $_GET['wine_id'] ?>);">Add To Basket</a><input type="number" id="wineQuantity"></li>
 						</ul>
 				</div>
     			</div>

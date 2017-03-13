@@ -1,6 +1,7 @@
 <?php
 require_once "dBcon.php";
 require_once "Customer.php";
+$php_base = "/home/k1415390/www/Workshop 2/Project 1.6";
 session_start();
 $name = $_POST['name'];
 $surname = $_POST['surname'];
@@ -8,6 +9,7 @@ $email = $_POST['email'];
 $phone = $_POST['phone'];
 $username = $_POST['username'];
 $password = $_POST['password1'];
+$password = sha1($password);
 
 $cUser = new Customer();
 $cUser->Name = $name;
@@ -28,7 +30,7 @@ $_SESSION['custObj'] = $cUser;
 // echo "window.location='../Pages/login.php'";
 // echo "</script>";
 // header("Location: ../Pages/home.php");
-require_once('../View/home.php');
+require_once($php_base.'/index.php');
 
 
 

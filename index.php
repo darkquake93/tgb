@@ -4,6 +4,7 @@
     $title='10 Green Bottles - Never enough wine!';
 	require_once 'Controller/authHeader.php';
 	require_once 'Model/wineDisplay.php';
+
 ?>
 
     <script>$(function(){menuSelect('home')})</script>
@@ -28,7 +29,7 @@
 
                                    <p><?= $item->Name ?>: <?= $item->Descr ?> </p>
 
-                                  <a href="View/viewWine.php?name=<?= $item->Name ?>&descr=<?=$item->Descr ?>&price=<?= $item->Price ?>&subCategory=<?= $item->subCategory ?>&isDry=<?= $item->isDry ?>&isLight=<?= $item->isLight ?>&category=<?= $item->Category ?>&wine_id=<?= $item->Wine_id ?>">View Full Details</a>
+                                  <a href="<?= $base ?>/View/viewWine.php?name=<?= $item->Name ?>&descr=<?=$item->Descr ?>&price=<?= $item->Price ?>&subCategory=<?= $item->subCategory ?>&isDry=<?= $item->isDry ?>&isLight=<?= $item->isLight ?>&category=<?= $item->Category ?>&wine_id=<?= $item->Wine_id ?>">View Full Details</a>
 
                                                  </div>
                            <?php endforeach ?>

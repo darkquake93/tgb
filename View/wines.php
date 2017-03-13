@@ -4,8 +4,14 @@
     $title='10 Green Bottles - Wines';
     require_once '../Controller/authHeader.php';
     require_once '../Model/browseWines.php';
+    if(!isset($_COOKIE['user_id'])) {
+       echo "Cookie named '" . $cookie_name . "' is not set!";
+  } else {
+       echo "Cookie '" . $cookie_name . "' is set!<br>";
+       echo "Value is: " . $_COOKIE['user_id'];
+  }
 ?>
-    
+
     <script>$(function(){
         menuSelect('wines');
         $('#Promotions').show();
@@ -157,4 +163,3 @@
 
     <?php include 'footer.php' ?>
     </html>
-

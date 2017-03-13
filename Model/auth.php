@@ -34,16 +34,25 @@ $cUser = $_SESSION['custObj'];
 $temp = $cUser->Customer_id;
 
 
- echo "<script type=\"text/javascript\">
- var d = new Date();
- var days=5;
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    var expires = \"\"+d.toUTCString();
 
-document.cookie = user_id=\"$temp\" +
-'; expires='+ expires + '; path=/';
-</script>
- ";
+
+
+
+$cookie_name = "user_id";
+$cookie_value = $temp;
+setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); 
+
+//
+//  echo "<script type=\"text/javascript\">
+//  var d = new Date();
+//  var days=5;
+//     d.setTime(d.getTime() + (days*24*60*60*1000));
+//     var expires = \"\"+d.toUTCString();
+//
+// document.cookie = user_id=\"$temp\" +
+// '; expires='+ expires + '; path=/';
+// </script>
+//  ";
 // $_SESSION['name'] = $userInfo[0]->Name;
 // $_SESSION['surname'] = $userInfo[0]->Surname;
 // $_SESSION['email'] = $userInfo[0]->Email;

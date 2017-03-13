@@ -25,6 +25,10 @@
 // echo $cUser->Name;
 require_once "../Controller/authHeader.php";
 require_once "../Model/manageBasket.php";
+require_once "../Model/BasketItem.php";
+$BasketItems = new BasketItem();
+$items = $BasketItems->getBasket();
+
 
 ?>
 <body id="index" class="home">
@@ -33,9 +37,12 @@ require_once "../Model/manageBasket.php";
 		<section id="content" class="body">
 			<div class="hentry">
         			<h3><a href="#">Current Items</a></h3>
-				<p><?php echo buildBasketView(); ?></p>
-				<p> Total Price £<?php echo getTotalPrice(); ?></p>
+		        <?php foreach ($items as $item): ?>
+							<p><?= $item->Name ?> <b>X</b> <?= $item->Quantity ?> (<?= $BasketItems->getTotalPriceOfItem($item); ?>)</p>
+            <?php endforeach ?>
+            <p><?= $BasketItems->getTotalPrice(); ?></p>
         			<span class="published">20th February, 2017</span>
+							
     			</div>
 		</section>
     <?php include 'footer.php' ?>
