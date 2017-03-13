@@ -1,64 +1,49 @@
-<?php
 
-    $php_base = "/home/k1336511/www/AD/TGB";
-    $base     = "/k1336511/AD/TGB";
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        require_once "$php_base/Model/dBcon.php";
-        require_once "$php_base/Model/Customer.php";
-
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $username = $_POST['username'];
-        $password = sha1($_POST['password']);
-
-        $query = $conn->prepare("SELECT Customer_id, Name, Surname, Email, Phone, Username, Pass FROM Customer WHERE Username=? AND Pass=?");
-        $query->execute([$username,$password]);
-        $custInfo = $query->fetchAll(PDO::FETCH_CLASS, "Customer");
-
-        if (!session_id()) {
-            session_start();
-        }
-
-        if(empty($custInfo)){
-
-            // SET ERROR MSG AND CONTINUE AS IF NOT POSTED
-            if (isset($_SESSION['badLoginCount'])) {
-                $_SESSION['badLoginCount']++;
-                $_SESSION['errorMsg'] = "Invalid Login.  Please retry (" . $_SESSION['badLoginCount'] . ' attempts)';
-            } else {
-                $_SESSION['badLoginCount'] = 1;
-                $_SESSION['errorMsg'] = "Invalid Login.  Please retry";
-            }
-
-        } else {
-            $_SESSION['Customer_id'] = $custInfo[0]->Customer_id;
-            header("Location: $base");
-            exit();
-        }
-
-    }
-
-?>
 <!DOCTYPE html>
-<html>
+ <html>
+ <head>
+   <title>Something</title>
+  	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  	<script src="tgb.js"></script>
+  	<link rel="stylesheet" href="css/style.css" type="text/css" />
+      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  		<meta charset="utf-8" />
 
-<?php
-    $title='10 Green Bottles - Login';
-    require_once "$php_base/Controller/authHeader.php";
-?>
-    <script>$(function(){menuSelect('signin')})</script>
-    <h2>~ Login ~</h2>
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!--[if lte IE 7]>
+    <script src="js/IE8.js" type="text/javascript"></script><![endif]-->
+  <!--[if lt IE 7]>
+    <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]-->
 
-    <section id="content">
-       <div id="login">
-           <form method="post" id="loginform">
-                <p>Username: <input type="text" name="username"></p>
-                <p>Password: <input type="password" name="password"></p>
-                <input type="submit" value="Log In" id="logSub">
-           </form>
+  	<header id="banner" class="body">
+  		<p>
+  			<img src="img/logo.png" alt="Logo" align="right" height="100" width="100" style="margin-right: 50px;"/>
+  			<h1>10 Green Bottles<br><strong>Online Wine Solutions <ins>EST.2017</ins></strong></h1>
+  		</p>
+
+  		<nav class="navbar">
+  			<ul>
+  				<li id="home"><a href="../index.php" onclick="homeSelect()">Home</a></li>
+  				<li id="wines"><a href="wines.php" onclick="wineSelect()" >Wines</a></li>
+  				<li id="offers"><a href="offers.php" onclick="offerSelect()">Offers</a></li>
+  				<li id="contact"><a href="contact.php" onclick="contactSelect()">Contact</a></li>
+  				<li id="information" style="float:right"><a href="Pages/login.php">Sign in</a></li>
+  				<li id="basket" style="float:right"><a href="#">Basket</a></li>
+  			</ul>
+  		</nav>
+  	</header>
+</head>
+   <body class="body" id="index">
+       <div class="login" id="login">
+       <form action="../Model/auth.php" method="post" id="loginform">
+        <p>Username: <input type="text" name="username"></p> <br>
+        <p>Password: <input type="text" name="password"></p><br>
+        <input type="submit" value="Log In" id="logSub">
+       </form>
+
        </div>
-    </section>
+   </body>
 
-<?php include 'footer.php' ?>
-</html>
+
+ </html>

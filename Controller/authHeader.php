@@ -1,9 +1,7 @@
 <!-- PHP Header Start -->
 <?php
 
-    if (!session_id()) {
-        session_start();
-    }
+  
 
     $php_base = "/home/k1336511/www/AD/TGB";
     $base     = "/k1336511/AD/TGB";
@@ -12,11 +10,15 @@
     require_once "$php_base/Model/Customer.php";
     require_once "$php_base/Model/Bill_Adr.php";
     require_once "$php_base/Model/Del_Adr.php";
+      
 
+	  if (!session_id()) {
+        session_start();
+	  }
     $Customer = null;
 
-    if(isset($_SESSION['Customer_id'])){
-        $Customer = Customer::find($_SESSION['Customer_id']);
+    if(isset($_SESSION['custObj'])){
+        $Customer = $_SESSION['custObj'];
     }
 
 ?>
@@ -57,11 +59,11 @@
 
                 <!--Basket links are stubs, but demonstrate highlighting of button-->
 
-                <li id="basket2" style="float:right"><a id="basket2" href="#" onclick="menuSelect('basket2')">Customer Basket</a></li>
+                <li id="basket2" style="float:right"><a id="basket2" href="<?=$base?>/View/basket.php" onclick="menuSelect('basket2')">Basket</a></li>
                 <?php } else { ?>
                 <li id="signin" style="float:right"><a href="<?=$base?>/View/login.php">Log in</a></li>
                 <li id="register" style="float:right"><a href="<?=$base?>/View/register.php">Register</a></li>
-                <li id="basket" style="float:right"><a id="basket" href="#" onclick="menuSelect('basket')">Guest Basket</a></li>
+                <li id="basket" style="float:right"><a id="basket" href="#" onclick="menuSelect('basket')">Wishlist</a></li>
                 <?php } ?>
             </ul>
         </nav>
