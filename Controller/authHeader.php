@@ -3,8 +3,8 @@
 
 
 
-    $php_base = "/home/k1415390/www/Workshop 2/Project 1.6";
-    $base     = "/k1415390/Workshop 2/Project 1.6";
+    $php_base = "/home/k1336511/www/AD/TGB";
+    $base     = "/k1336511/AD/TGB";
 
     require_once "$php_base/Model/dBcon.php";
     require_once "$php_base/Model/Customer.php";
@@ -53,17 +53,24 @@
                 <li id="wines"><a href="<?=$base?>/View/wines.php" onclick="wineSelect()" >Wines</a></li>
                 <li id="offers"><a href="<?=$base?>/View/offers.php" onclick="offerSelect()">Offers</a></li>
                 <li id="contact"><a href="<?=$base?>/View/contact.php" onclick="contactSelect()">Contact</a></li>
-                <?php if ($Customer) { ?>
-                <li id='logout' style="float: right"><a href="<?=$base?>/Controller/logout.php">Log out</a></li>
-                <li id="profile" style="float:right"><a href="<?=$base?>/View/profile.php"><?= $Customer->printUserInfo() ?></a></li>
 
-                <!--Basket links are stubs, but demonstrate highlighting of button-->
+                <!--Checks if signed in and type = 0 meaning they are a Customer-->
+                <?php if ($Customer && $Customer->uType == 0) { ?>
+                <li id='logout' style="float: right"><a href="<?=$base?>/Controller/logout.php">Log out</a></li>
+
+                <!--Basket link is a stub, but demonstrates highlighting of button-->
 
                 <li id="basket2" style="float:right"><a id="basket2" href="<?=$base?>/View/basket.php" onclick="menuSelect('basket2')">Basket</a></li>
+
+                <li id="profile" style="float:right"><a href="<?=$base?>/View/profile.php"><?= $Customer->printUserInfo() ?></a></li>
+
+                <?php } else if($Customer && $Customer->uType == 1) { ?>
+                 <li id='logout' style="float: right"><a href="<?=$base?>/Controller/logout.php">Log out</a></li>
+                <li id="profile" style="float:right"><a href="<?=$base?>/View/profile.php"><?= $Customer->printUserInfo() ?></a></li>
+                <li id="orders" style="float:right"><a href="<?=$base?>/View/orders.php">Orders</a></li>
                 <?php } else { ?>
                 <li id="signin" style="float:right"><a href="<?=$base?>/View/login.php">Log in</a></li>
                 <li id="register" style="float:right"><a href="<?=$base?>/View/register.php">Register</a></li>
-                <li id="basket" style="float:right"><a id="basket" href="#" onclick="menuSelect('basket')">Wishlist</a></li>
                 <?php } ?>
             </ul>
         </nav>

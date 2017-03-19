@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
 <!-- PHP Header Start -->
-<script type="text/javascript" src="../Controller/addToBasket.js"></script>
+<script type="text/javascript" src="../Controller/manageBasket.js"></script>
 <?php
-//echo $_GET['name'].$_GET['descr'];
-//echo $_GET['subCategory'].$_GET['category'];
-//echo $_GET['price'];
-//echo $_GET['isLight'];
+$title='10 Green Bottles - Never enough wine!';
+require_once '../Controller/authHeader.php';
+require_once $php_base.'/Model/dataAccessCust.php';
+$wine = new Wine();
 
 
-
-$title='10 Green Bottles - Never enough wine!'; require_once '../Controller/authHeader.php' ?>
+ ?>
 
 <!-- PHP Header End -->
 
@@ -23,14 +22,14 @@ $title='10 Green Bottles - Never enough wine!'; require_once '../Controller/auth
               <div class="wineDetails">
 				<p><?= $_GET['descr'] ?></p>
 				<img src="#">
-        <p>Price: £<?= $_GET['price'] ?></p>
-        <p>Dryness rating: <?= $_GET['isDry'] ?></p>
+        <p>Price: £<?= $wine->formatPrice($_GET['price']) ?></p>
+
         <p id="wType">Wine type: <?= $_GET['isLight'] ?></p>
 				<div class="btnDropdown">
 
 					<ul class="AddToWishList">
 							<li><a>Add To Wish List</a></li>
-							<li id="addToBasketLi"><a onclick="getBasketInfo(<?= $_GET['wine_id'] ?>);">Add To Basket</a><input type="number" id="wineQuantity"></li>
+							<li id="addToBasketLi"><a onclick="addToBasket(<?= $_GET['wine_id'] ?>);">Add To Basket</a><input type="number" id="wineQuantity"></li>
 						</ul>
 				</div>
     			</div>

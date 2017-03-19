@@ -1,10 +1,10 @@
 <?php
-class ShoppingBasket implements JsonSerializable
-{
 
-private $Customer_id;
-private $Wine_id;
-private $Quantity;
+ class AdminOrder {
+
+private $AdminOrder_id;
+private $Co_id;
+private $DelDate;
 
 
 function __get($property) {
@@ -23,5 +23,7 @@ public function jsonSerialize()
   return get_object_vars($this);
 
 }
-}
+
+
+ }
 ?>

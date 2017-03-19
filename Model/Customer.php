@@ -12,6 +12,7 @@ class Customer implements JsonSerializable {
     private $Username;
     private $Customer_id;
     private $Pass;
+    private $uType;
 
     function __get($property) {
         if(property_exists($this, $property)){

@@ -1,4 +1,6 @@
-
+a{
+  text-decoration: none;
+}
 body
 {
     background: #e0efe1;
@@ -35,7 +37,7 @@ input.bigbutton {
 
 .responsive {
     max-width: 100%;
-} 
+}
 
 .underlineText
 {
@@ -255,4 +257,46 @@ div.tab a:focus, .active {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+}
+
+.delBtn {
+  display: inline;
+   width: 100px;
+   height: 20px;
+   background: #C74350;
+   padding: 10px;
+   text-align: center;
+   border-radius: 5px;
+   color: white;
+   font-weight: bold;
+   margin-left: 20px;
+   text-decoration: none;
+}
+
+.linkBtn{
+
+  display: inline;
+  width: 100px;
+  height :20px;
+  background: #74CBDD;
+  text-align: center;
+  border-radius:  5px;
+  color: black;
+  font-weight: bold;
+   padding: 10px;
+   text-decoration: none;
+
+}
+.listItem{
+  margin-bottom: 30px;
+}
+.formStyle
+{
+  display: block;
+margin-left: 318px;
+margin-bottom: 10px;
+
+}
+#test{
+
 }

@@ -1,4 +1,4 @@
-function getBasketInfo(wine_id)
+function addToBasket(wine_id)
 {
   var quan = document.getElementById('wineQuantity').value;
 
@@ -29,9 +29,10 @@ function getBasketInfo(wine_id)
  }
  else
  {
-   
+
    alert(user_id+'About to do some Ajax!');
    $.get("../Controller/addToBasketService.php?wine_id="+wine_id+"&user_id="+user_id+"&quan="+quan, addCallBack);
+   $.get("../Controller/editStockService.php?wine_id="+wine_id+"&quan="+quan+"&mth=updateStock", stockCallBack);
  }
 
  }
@@ -42,9 +43,17 @@ function getBasketInfo(wine_id)
 }
 
 
-function addCallBack($result)
+function addCallBack(result)
 {
+
+    console.log(result);
+
   alert("Got here");
+}
+
+function stockCallBack()
+{
+  alert("Stock Modified");
 }
 
 function getBasket()

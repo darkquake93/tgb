@@ -83,7 +83,7 @@ class Bill_Adr implements JsonSerializable {
     // Example usage:
     //    $newcust = new Bill_Adr();
     //    $newcust->Username= 'joeb'; $newcust->Name = 'Xoe'; $newcust->Addressln1 = 'Xlow';
-    //    $newcust->Customer_id   = 'X@b.com'; $newcust->Postcode   = 'X432'; 
+    //    $newcust->Customer_id   = 'X@b.com'; $newcust->Postcode   = 'X432';
     //    $newcust->create();
 
     function create() {
@@ -112,5 +112,6 @@ class Bill_Adr implements JsonSerializable {
 
     }
 
+  
 }
 ?>

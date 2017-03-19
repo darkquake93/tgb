@@ -55,7 +55,37 @@ function searchByName(cat)
   $.get("../Controller/getWineByNameService.php?name="+name+"&cat="+cat, nameCalBack);
 }
 
+function searchByDesc(cat)
+{
+  var desc;
+  if(cat == 'Red')
+  {
+    var desc = document.getElementById('findByDesc').value;
+  }
+
+  else if(cat == 'White')
+  {
+    var desc = document.getElementById('findByDescW').value;
+
+  }
+
+  else if(cat == 'Sparkling')
+  {
+      var desc = document.getElementById('findByDescS').value;
+  }
+
+  desc = '%'+desc+'%';
+
+  alert('desc');
+  $.get("../Controller/getWinesByDescService.php?desc="+desc+"&cat="+cat, descCalBack);
+}
+
 function nameCalBack(result)
+{
+    buildListContainer(result);
+}
+
+function descCalBack(result)
 {
     buildListContainer(result);
 }

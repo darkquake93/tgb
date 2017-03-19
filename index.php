@@ -3,7 +3,8 @@
 <?php
     $title='10 Green Bottles - Never enough wine!';
 	require_once 'Controller/authHeader.php';
-	require_once 'Model/wineDisplay.php';
+	require_once 'Model/dataAccessCust.php';
+  $redW = displayWine();
 
 ?>
 
@@ -29,8 +30,8 @@
 
                                    <p><?= $item->Name ?>: <?= $item->Descr ?> </p>
 
-                                  <a href="<?= $base ?>/View/viewWine.php?name=<?= $item->Name ?>&descr=<?=$item->Descr ?>&price=<?= $item->Price ?>&subCategory=<?= $item->subCategory ?>&isDry=<?= $item->isDry ?>&isLight=<?= $item->isLight ?>&category=<?= $item->Category ?>&wine_id=<?= $item->Wine_id ?>">View Full Details</a>
-
+                                  <a href="<?= $base ?>/View/viewWine.php?name=<?= $item->Name ?>&descr=<?=$item->Descr ?>&price=<?= $item->Price ?>&subCategory=<?= $item->subCategory ?>&isDry=<?= $item->isDry ?>&isLight=<?= $item->isLight ?>&category=<?= $item->Category ?>&wine_id=<?= $item->Wine_id ?>&purchases=<?php $item->Purchases ?>">View Full Details</a>
+                                    <!-- <a href="<?=$base ?>/View/viewWine.php?wine_id=<?= $item->Wine_id ?>">View Full Detail</a> -->
                                                  </div>
                            <?php endforeach ?>
 

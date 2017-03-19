@@ -9,7 +9,7 @@ $username = stripslashes($username);
 $password = stripslashes($password);
 
 
-$query = $conn->query("SELECT Customer_id, Name, Surname, Email, Phone, Username FROM Customer WHERE Username='$username' and pass='$password'");
+$query = $conn->query("SELECT Customer_id, Name, Surname, Email, Phone, Username, uType FROM Customer WHERE Username='$username' and pass='$password'");
 $query->execute();
 if($query->rowCount() > 0){
 
@@ -40,7 +40,7 @@ $temp = $cUser->Customer_id;
 
 $cookie_name = "user_id";
 $cookie_value = $temp;
-setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); 
+setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
 
 //
 //  echo "<script type=\"text/javascript\">

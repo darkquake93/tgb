@@ -3,7 +3,6 @@
 <?php
     $title='10 Green Bottles - Register';
     require_once '../Controller/authHeader.php';
-    require_once '../Model/browseWines.php';
 ?>
 
 <script>$(function(){menuSelect('register')})</script>

@@ -2,94 +2,20 @@
 <html>
 <?php
 
-    $php_base = "/home/k1336511/www/AD/TGB";
-    $base     = "/k1336511/AD/TGB";
+    $title    = '10 Green Bottles - Profile';
+    require_once "../Controller/authHeader.php";
+    require_once "../Model/dataAccessCust.php";
+    require_once "../Model/CustomerOrder.php";
+    require_once "../Model/Order_Item.php";
+    require_once "../Model/Wine.php";
+    require_once "../Controller/profileCtrlr.php";
+    $orderNum = getCustomerOrderById($_SESSION['custObj']->Customer_id);
+    var_dump($orderNum);
+    echo 'hello';
 
-    $title    = '10 Green Bottles - Profile'; 
-    require_once "$php_base/Controller/authHeader.php"; 
+    
 
-    $Bill_Adr = $Customer->Bill_Adr();
-    if (!$Bill_Adr) {
-        $Bill_Adr = new Bill_Adr();
-        $Bill_Adr->Customer_id = $Customer->Customer_id;
-        $Bill_Adr->Addressln1  = '';
-        $Bill_Adr->Name        = '';
-        $Bill_Adr->Postcode    = '';
-    }
-
-    $Del_Adr = $Customer->Del_Adr();
-    if (!$Del_Adr) {
-        $Del_Adr = new Del_Adr();
-        $Del_Adr->Customer_id = $Customer->Customer_id;
-        $Del_Adr->Addressln1  = '';
-        $Del_Adr->Name        = '';
-        $Del_Adr->Postcode    = '';
-    }
-
-    // This page handles both the initial form presentation (i.e. a GET)
-    // and the form submission (i.e. the POST).  If POST-ed, we handle 
-    // the transaction here first.
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        if (isset($_POST["update_customer"])) {
-
-            if (isset($_POST["Username"])) {$Customer->Username = $_POST["Username"];}
-            if (isset($_POST["Name"    ])) {$Customer->Name     = $_POST["Name"    ];}
-            if (isset($_POST["Surname" ])) {$Customer->Surname  = $_POST["Surname" ];}
-            if (isset($_POST["Email"   ])) {$Customer->Email    = $_POST["Email"   ];}
-            if (isset($_POST["Phone"   ])) {$Customer->Phone    = $_POST["Phone"   ];}
-
-            $Customer->update();
-
-            // password handling is "different".. only update if non-empty; also use a
-            // special handler in the Customer class that will encrypt it prior to save.
-
-            if (isset($_POST["Pass"   ]) &&
-               !empty($_POST["Pass"   ])) {
-                $Customer->Pass = $_POST["Pass"];
-                $Customer->update_pass();
-            }
-
-        }
-
-        if (isset($_POST["update_bil_adr"])) {
-
-            if (isset($_POST["Name"      ])) {$Bill_Adr->Name       = $_POST["Name"      ];}
-            if (isset($_POST["Addressln1"])) {$Bill_Adr->Addressln1 = $_POST["Addressln1"];}
-            if (isset($_POST["Addressln2"])) {$Bill_Adr->Addressln2 = $_POST["Addressln2"];}
-            if (isset($_POST["Postcode"  ])) {$Bill_Adr->Postcode   = $_POST["Postcode"  ];}
-
-            if ($Bill_Adr->Bill_id) {
-                $Bill_Adr->update();
-            } else {
-                $Bill_Adr->create();
-            }
-
-        }
-
-        if (isset($_POST["update_del_adr"])) {
-
-            if (isset($_POST["Name"      ])) {$Del_Adr->Name       = $_POST["Name"      ];}
-            if (isset($_POST["Addressln1"])) {$Del_Adr->Addressln1 = $_POST["Addressln1"];}
-            if (isset($_POST["Addressln2"])) {$Del_Adr->Addressln2 = $_POST["Addressln2"];}
-            if (isset($_POST["Postcode"  ])) {$Del_Adr->Postcode   = $_POST["Postcode"  ];}
-
-            if ($Del_Adr->Del_id) {
-                $Del_Adr->update();
-            } else {
-                $Del_Adr->create();
-            }
-
-        }
-
-        // After a successful update by this POST, we re-direct to this page
-        // (so user cannot re-run the same transaction by hitting F5).
-
-        header("Location: $base/View/profile.php");
-        exit();
-
-    }
+    
 ?>
 
     <script>$(function(){
@@ -97,14 +23,22 @@
         $('#Personal').show();
     })</script>
 
+        <script type="text/javascript" src="../Controller/browseWines.js"></script>
+ <script type="text/javascript" src="../Controller/searchWine.js"></script>
+ <script type="text/javascript" src="../Controller/searchRadControl.js"></script>
+<script type="text/javascript" src="../Controller/tgb.js"></script>
+
     <h2>~ Account ~</h2>
 
     <section id="content">
 
         <div class="tabs">
+
             <a href="#" class="tablinks active" onclick="openWine(event, 'Personal')">Personal Details</a>
-            <a href="#" class="tablinks"        onclick="openWine(event, 'Billing')">Billing Addressg</a>
-            <a href="#" class="tablinks"        onclick="openWine(event, 'Deling')">Delivery Address</a>
+            <a href="#" class="tablinks" onclick="openWine(event, 'Billing')">Billing Address</a>
+            <a href="#" class="tablinks" onclick="openWine(event, 'Deling')">Delivery Address</a>
+            <a href="#" class="tablinks" onclick="openWine(event, 'Orders')">Orders</a>
+
         </div>
 
         <div id="Personal" class="tabcontent">
@@ -167,6 +101,7 @@
 
         <div id="Deling" class="tabcontent">
             <h3>Delivery Address</h3>
+
             <form method="POST">
                 <table class="centered">
                     <tr>
@@ -189,6 +124,39 @@
                 <input class="bigbutton" name="update_del_adr" type="submit" value="Update Delivery Address" />
             </form>
         </div>
+
+        <div id="Orders" class="tabcontent">
+          <h2>Current Orders</h2>
+          <?php if ($Customer && $Customer->uType == 0) { ?>
+          <?php foreach ($orderNum  as $order) { ?>
+          <div class="order">
+            <h4>Order Id: <?= $order->CO_id; ?> Delivery Date: <?= $order->DelDate ?></h4>
+            <?php
+
+            foreach ($orderItems  = getOrderItemsByCustomerOrderId($order->CO_id) as $value)
+             {
+               foreach ($wine = getWineById($value->Wine_id) as $wItem) { ?>
+                 <p><?= $wItem->Name ?></p>
+            <?php   }
+             } ?>
+          </div>
+          <?php } } 
+
+else if ($Customer && $Customer->uType == 1) {
+    echo "";
+}
+
+
+?>
+        </div>
+        
+
+</div>
+
+
+
+
+
     </section>
 
 <?php include 'footer.php' ?>

@@ -24,10 +24,12 @@
 // echo $_SESSION['name'];
 // echo $cUser->Name;
 require_once "../Controller/authHeader.php";
-require_once "../Model/manageBasket.php";
-require_once "../Model/BasketItem.php";
-$BasketItems = new BasketItem();
-$items = $BasketItems->getBasket();
+
+require_once "../Model/dataAccessCust.php";
+
+$items = getBasket();
+var_dump($items);
+
 
 
 ?>
@@ -38,16 +40,18 @@ $items = $BasketItems->getBasket();
 			<div class="hentry">
         			<h3><a href="#">Current Items</a></h3>
 		        <?php foreach ($items as $item): ?>
-							<p><?= $item->Name ?> <b>X</b> <?= $item->Quantity ?> (<?= $BasketItems->getTotalPriceOfItem($item); ?>)</p>
+							<div class ="listItem">
+							<p><?= $item->Name ?> <b>X</b> <?= $item->Quantity ?> (<?= getTotalPriceOfBasketItem($item); ?>)<a href="../Model/manageBasket.php?function='del'&wine_id=<?= $item->Wine_id ?>" class="delBtn">Delete</a></p>
+						</div>
             <?php endforeach ?>
-            <p><?= $BasketItems->getTotalPrice(); ?></p>
+            <p><?= getBasketTotalPrice(); ?>  <a href="../Controller/checkInfo.php" class="linkBtn">Check out</a></p>
         			<span class="published">20th February, 2017</span>
-							
+
     			</div>
 		</section>
     <?php include 'footer.php' ?>
     <!-- PHP Footer End -->
-    <script type="text/javascript" src="../Controller/addToBasket.js"></script>
+    <script type="text/javascript" src="../Controller/manageBasket.js"></script>
     </body>
     <!-- Body End -->
     </html>
