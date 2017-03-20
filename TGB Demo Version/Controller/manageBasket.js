@@ -1,9 +1,10 @@
+
 function addToBasket(wine_id)
 {
   var quan = document.getElementById('wineQuantity').value;
 
   var user_id = getCookie('user_id');
-    alert(user_id);
+
 
   if(quan != 0 && quan != "" && quan != null)
   {
@@ -30,7 +31,7 @@ function addToBasket(wine_id)
  else
  {
 
-   alert(user_id+'About to do some Ajax!');
+   alert('here');
    $.get("../Controller/addToBasketService.php?wine_id="+wine_id+"&user_id="+user_id+"&quan="+quan, addCallBack);
    $.get("../Controller/editStockService.php?wine_id="+wine_id+"&quan="+quan+"&mth=updateStock", stockCallBack);
  }
@@ -47,8 +48,8 @@ function addCallBack(result)
 {
 
     console.log(result);
+     alert('here');
 
-  alert("Got here");
 }
 
 function stockCallBack()
@@ -83,6 +84,25 @@ function getCookie(c_name) {
         }
     }
     return("Error Cannot locate field"+c_name);
+}
+
+function addToBasketTemp(wine_id)
+{
+ var quan = document.getElementById('wineQuantity').value;
+ if(quan != 0 && quan != "" && quan != null)
+ {
+  $.get("../Controller/addToTempBasketService.php?wine_id="+wine_id+"&quan="+quan, tempCallback);
+ }
+ else {
+   {
+     alert('Please enter a Quantity');
+   }
+ }
+}
+
+function tempCallback()
+{
+  alert('Made it!');
 }
 
 

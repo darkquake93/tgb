@@ -3,9 +3,9 @@
  class AdminOrder {
 
 private $AdminOrder_id;
-private $Co_id;
+private $CO_id;
 private $DelDate;
-
+private $Customer_id;
 
 function __get($property) {
   if(property_exists($this, $property)){

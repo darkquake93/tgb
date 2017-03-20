@@ -1,16 +1,30 @@
 <?php
  require_once 'dBcon.php';
  require_once 'Wine.php';
+ require_once 'WinePromotion.php';
+ require_once 'Promotion.php';
  require_once 'BasketItem.php';
 require_once 'ShoppingBasket.php';
 require_once 'Order_Item.php';
-
+require 'CustomerOrderLog.php';
+require 'CustomerOrderLogItem.php';
 //Basket Q
  function getBasket()
  {
 
    global $conn;
    $user_id = $_SESSION['custObj']->Customer_id;
+   $sql = $conn->prepare("SELECT ShoppingBasket.Quantity, Wine.Wine_id, Wine.Category, Wine.subCategory, Wine.Name, Wine.Descr, Wine.Price, Wine.Purchases
+     FROM Wine, Customer, ShoppingBasket WHERE Customer.Customer_id = ?
+     AND Customer.Customer_id = ShoppingBasket.Customer_id AND Wine.Wine_id = ShoppingBasket.Wine_id");
+     $sql->execute([$user_id]);
+     $basketWine = $sql->fetchAll(PDO::FETCH_CLASS, "BasketItem");
+     return $basketWine;
+ }
+
+ function getOrderItemsById($user_id)
+ {
+   global $conn;
    $sql = $conn->prepare("SELECT ShoppingBasket.Quantity, Wine.Wine_id, Wine.Category, Wine.subCategory, Wine.Name, Wine.Descr, Wine.Price, Wine.Purchases
      FROM Wine, Customer, ShoppingBasket WHERE Customer.Customer_id = ?
      AND Customer.Customer_id = ShoppingBasket.Customer_id AND Wine.Wine_id = ShoppingBasket.Wine_id");
@@ -26,6 +40,37 @@ require_once 'Order_Item.php';
    $sql = $conn->prepare("DELETE FROM ShoppingBasket WHERE Customer_id = ? AND Wine_id = ?");
      $sql->execute([$user_id, $wine_id]);
      return "Item removed";
+ }
+
+ function getBasketItemsById($co_id){
+   global $conn;
+   $sql = $conn->prepare("SELECT * FROM Order_Item WHERE CO_id = ?");
+     try {
+     $sql->execute([$co_id]);
+    $items = $sql->fetchAll(PDO::FETCH_CLASS, 'Order_Item');
+    return $items;
+     } catch(PDOException $e) {
+       return $e->getMessage();
+       }
+
+
+
+ }
+
+
+ function getCustomerOrdersLogItemById($co_id)
+ {
+   global $conn;
+   $sql = $conn->prepare("SELECT * FROM CustomerOrderLogItem WHERE CO_id = ?");
+     try {
+     $sql->execute([$co_id]);
+    $items = $sql->fetchAll(PDO::FETCH_CLASS, 'CustomerOrderLogItem');
+    return $items;
+     } catch(PDOException $e) {
+       return $e->getMessage();
+       }
+
+
  }
 
  function getBasketTotalPrice()
@@ -110,15 +155,24 @@ function getTotalPriceOfBasketItem($item)
 
   function insertOrderItems($co_id, $wItems){
  global $conn;
- $sql = $conn->prepare('INSERT INTO Order_Item (CO_id, Wine_id) VALUES (?, ?)');
+ $sql = $conn->prepare('INSERT INTO Order_Item (CO_id, Wine_id, Quantity) VALUES (?, ?, ?)');
  foreach($wItems as $item){
  $wine_id = $item->Wine_id;
 
  $wine_id = (string)$wine_id;
 
- $sql->execute([$co_id, $wine_id]);
+ $sql->execute([$co_id, $wine_id, $item->Quantity]);
  }
  return "Success!";
+ }
+
+ function checkIfOrderItemExists($co_id)
+ {
+   global $conn;
+   $sql = $conn->prepare('SELECT * FROM Order_Item WHERE CO_id = ?');
+   $sql->execute([$co_id]);
+   $items = $sql->fetchAll(PDO::FETCH_CLASS, 'Order_Item');
+   return $items;
  }
 
   function getOrderItemsByCustomerOrderId($co_id){
@@ -129,6 +183,23 @@ function getTotalPriceOfBasketItem($item)
    return $items;
  }
 
+function getCustomerOrdersLogById($user_id)
+{
+  global $conn;
+  $sql = $conn->prepare('SELECT * FROM CustomerOrderLog WHERE Customer_id = ?');
+  $sql->execute([$user_id]);
+  $orders = $sql->fetchAll(PDO::FETCH_CLASS, 'CustomerOrderLog');
+  return $orders;
+}
+
+function getCoidObj($user_id)
+{
+  global $conn;
+  $sql = $conn->prepare('SELECT CO_id FROM CustomerOrder WHERE Customer_id = ?');
+  $sql->execute([$user_id]);
+  $items = $sql->fetchAll(PDO::FETCH_OBJ);
+  return $items;
+}
  //  function insertOrderItems($co_id, $wItems){
  // global $conn;
  // $sql = $conn->prepare('INSERT INTO Order_Item (CO_id, Wine_id) VALUES (?, ?)');
@@ -151,6 +222,23 @@ function getTotalPriceOfBasketItem($item)
  // }
 
  //wine Q
+
+function getPromos(){
+      global $conn;
+
+  $promosQ = $conn->query("SELECT Wine_id, expDate FROM WinePromotion ORDER BY RAND() LIMIT 1");
+  $promosQ->execute();
+  $promos = $promosQ->fetchAll(PDO::FETCH_CLASS, "WinePromotion");
+  return $promos;
+ }
+ function getPromotedById(){
+      global $conn;
+
+  $promosQ = $conn->query("SELECT Promotion_id, Discount FROM Promotion ORDER BY RAND() LIMIT 1");
+  $promosQ->execute();
+  $promos2 = $promosQ->fetchAll(PDO::FETCH_CLASS, "Promotion");
+  return $promos2;
+ }
 
 function displayWine(){
   global $conn;
@@ -303,7 +391,13 @@ function addWineToBasketJson($wine_id, $user_id, $quan)
   return json_encode($status);
 }
 //basketitem Q
+function deleteBasket($user_id){
+  global $conn;
+  $sql = $conn->prepare('DELETE FROM ShoppingBasket WHERE Customer_id = ?');
+  $sql->execute([$user_id]);
+  return "Shopping basket entry deleted!";
 
+}
 
 
 

@@ -17,24 +17,10 @@ $wine = new Wine();
 <body id="index" class="home" onload="contactSelect()">
 	<h2 align="center"><?= $_GET['subCategory'] ?></h2>
 		<section id="content" class="body">
-			<div class="hentry">
-        			<h3><a href="#"><?= $_GET['name'] ?></a></h3>
-              <div class="wineDetails">
-				<p><?= $_GET['descr'] ?></p>
-				<img src="#">
-        <p>Price: £<?= $wine->formatPrice($_GET['price']) ?></p>
 
-        <p id="wType">Wine type: <?= $_GET['isLight'] ?></p>
-				<div class="btnDropdown">
+<?php require_once '../Controller/viewWineController.php'; ?>
 
-					<ul class="AddToWishList">
-							<li><a>Add To Wish List</a></li>
-							<li id="addToBasketLi"><a onclick="addToBasket(<?= $_GET['wine_id'] ?>);">Add To Basket</a><input type="number" id="wineQuantity"></li>
-						</ul>
-				</div>
-    			</div>
-          	<span class="published">21st February, 2017</span>
-          <div>
+
 		</section>
 
 <!-- PHP Footer Start -->

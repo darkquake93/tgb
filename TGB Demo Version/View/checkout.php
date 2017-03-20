@@ -33,10 +33,11 @@
                 <input class="formStyle" type="text" name="Addressln2B" value="<?= $_SESSION['BilAdr']->Addressln1 ?>"></input>
                 <label for="PostcodeB">PostcodeB</label>
                 <input class="formStyle" type="text" name="PostcodeB" value="<?= $_SESSION['BilAdr']->Postcode ?>"></input>
+                <h3>Review Order Items</h3>
                 <?php foreach ($items as $item): ?>
                   	<p><?= $item->Name ?> <b>X</b> <?= $item->Quantity ?></p>
                   <?php endforeach ?>
-                  <p>Total Price: <?= getTotalPrice(); ?></p>
+                  <p>Total Price: £<?= getTotalPrice(); ?></p>
                      <a href="../Controller/confirmOrder.php" class="linkBtn">Confirm Purchase</a>
                 <form>
               </form>

@@ -5,17 +5,12 @@
     $title    = '10 Green Bottles - Profile';
     require_once "../Controller/authHeader.php";
     require_once "../Model/dataAccessCust.php";
+
     require_once "../Model/CustomerOrder.php";
     require_once "../Model/Order_Item.php";
     require_once "../Model/Wine.php";
     require_once "../Controller/profileCtrlr.php";
-    $orderNum = getCustomerOrderById($_SESSION['custObj']->Customer_id);
-    var_dump($orderNum);
-    echo 'hello';
-
-    
-
-    
+    $orderNum = getCustomerOrdersLogById($_SESSION['custObj']->Customer_id);
 ?>
 
     <script>$(function(){
@@ -127,29 +122,26 @@
 
         <div id="Orders" class="tabcontent">
           <h2>Current Orders</h2>
-          <?php if ($Customer && $Customer->uType == 0) { ?>
+
           <?php foreach ($orderNum  as $order) { ?>
           <div class="order">
             <h4>Order Id: <?= $order->CO_id; ?> Delivery Date: <?= $order->DelDate ?></h4>
             <?php
 
-            foreach ($orderItems  = getOrderItemsByCustomerOrderId($order->CO_id) as $value)
+            foreach ($orderItems  = getCustomerOrdersLogItemById($order->CO_id) as $value)
              {
                foreach ($wine = getWineById($value->Wine_id) as $wItem) { ?>
-                 <p><?= $wItem->Name ?></p>
+                 <p><?= $wItem->Name ?> <b>X</b> <?= $value->Quantity ?></p>
             <?php   }
              } ?>
           </div>
-          <?php } } 
+          <?php }
 
-else if ($Customer && $Customer->uType == 1) {
-    echo "";
-}
 
 
 ?>
         </div>
-        
+
 
 </div>
 
@@ -161,4 +153,3 @@ else if ($Customer && $Customer->uType == 1) {
 
 <?php include 'footer.php' ?>
 </html>
-

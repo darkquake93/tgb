@@ -7,6 +7,9 @@
     $rWines = getWineByCatRed();
     $wWines = getWineByCatWhite();
     $sWines = getWineByCatSparkling();
+    $promos = getPromos();
+    $promos2 = getPromotedById();
+    //var_dump([$promos]);
 ?>
 
     <script>$(function(){
@@ -40,7 +43,29 @@
 
     <div id="Promotions" class="tabcontent">
       <h3>Promoted Wines</h3>
-      <p>London is the capital city of England.</p>
+      <?php foreach ($promos as $item): ?>
+
+        <div class="wineContainer">
+<p>Random Promotion # </p>
+          <p><?= $item->Promotion_id ?></p>
+
+<p>For Wine: </p>
+          <p><?= $item->Wine_id ?></p>
+<p>Expires on: </p>
+          <p><?= $item->expDate ?></p>
+<p>Discount: </p>
+          <p><?= $item->Discount ?></p>
+<p> % </p>
+
+<?php foreach ($wines = getWineById($item->Wine_id) as $item): ?>
+
+<p><?= $item->Name ?></p>
+
+<?php endforeach ?>
+
+        </div>
+
+      <?php endforeach ?>
     </div>
     
 
@@ -197,10 +222,6 @@
       </div>
     </div>
 </div>
-<div id="Test" class="tabcontent">
-      <p>tess</p>
-</div>
-
 
     </section>
 
