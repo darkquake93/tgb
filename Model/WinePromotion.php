@@ -1,9 +1,10 @@
 <?php
-class Promotion implements JsonSerializable
+class WinePromotion implements JsonSerializable
 {
 
 private $Promotion_id;
-private $Discount;
+private $Wine_id;
+private $expDate;
 
 function __get($property) {
   if(property_exists($this, $property)){

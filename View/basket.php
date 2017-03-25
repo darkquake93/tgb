@@ -31,10 +31,6 @@ require_once "../Model/dataAccessCust.php";
 
 
 ?>
-<script>$(function(){
-        menuSelect('basket2');
-        $('#Promotions').show();
-    })</script>
 <body id="index" class="home">
 
 	<h2 align="center">~ Basket ~</h2>

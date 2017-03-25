@@ -157,5 +157,6 @@ class Customer implements JsonSerializable {
         return $stmt->fetch();
     }
 
+
 }
 ?>

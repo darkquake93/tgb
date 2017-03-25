@@ -106,6 +106,13 @@ function tempCallback()
 }
 
 
+function addToBasketTemp(wine_id)
+{
+  var c = document.cookie;
+  c += 'test=' + wine_id;
+}
+
+
   //window.location.href = "myphpfile.php?quan="+quan;
 
 

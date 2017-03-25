@@ -10,16 +10,22 @@
     require_once "$php_base/Model/Customer.php";
     require_once "$php_base/Model/Bill_Adr.php";
     require_once "$php_base/Model/Del_Adr.php";
-
+    require_once "$php_base/Controller/manageTempBasket.php";
 
 	  if (!session_id()) {
         session_start();
 	  }
     $Customer = null;
-
+    $tmpbskArr = null;
     if(isset($_SESSION['custObj'])){
         $Customer = $_SESSION['custObj'];
     }
+
+
+   if(isset($_SESSION['tempBasket'])){
+     $tmpbskArr = $_SESSION['tempBasket'];
+   }
+   var_dump($tmpbskArr);
 
 ?>
 <head>
@@ -71,9 +77,11 @@
                   <?php } else { ?>
                   <li id="signin" style="float:right"><a href="<?=$base?>/View/login.php">Log in</a></li>
                   <li id="register" style="float:right"><a href="<?=$base?>/View/register.php">Register</a></li>
-                    <li id="basket2" style="float:right"><a id="basket2" href="<?=$base?>/View/basket.php" onclick="menuSelect('basket2')">Basket</a></li>
-
-                  <?php } ?>
+                            <?php  if(count($tmpbskArr) != 0) { ?>
+                    <li id="basket2" style="float:right"><a id="basket2" href="<?=$base?>/View/basket.php" onclick="menuSelect('basket2')">Basket (<?= getBasketCount() ?>)</a></li>
+                  <?php  } else {   ?>
+                                 <li id="basket2" style="float:right"><a id="basket2" href="<?=$base?>/View/basket.php" onclick="menuSelect('basket2')">Basket</a></li>
+                  <?php  } } ?>
               </ul>
           </nav>
 
